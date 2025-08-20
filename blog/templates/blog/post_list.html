@@ -1,0 +1,96 @@
+{% extends "blog/base_blog.html" %}
+{% block content %}
+
+<div class="blog-header-actions">
+    <h1>Blog</h1>
+    <a href="{% url 'crear_post' %}" class="btn-crear-post">+ Crear Post</a>
+</div>
+
+<div class="blog-posts">
+    {% for post in posts %}
+    <div class="post">
+        <h3>{{ post.titulo }}</h3>
+        {% if post.imagen %}
+            <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" style="max-width:100%; border-radius:6px; margin-bottom:0.5rem;">
+        {% endif %}
+        <p>{{ post.contenido|truncatewords:30 }}</p>
+        <a href="{% url 'post_detail' post.pk %}">Ver post completo </a>
+    </div>
+    {% empty %}
+        <p>No hay posts aún.</p>
+    {% endfor %}
+</div>
+
+<style>
+.blog-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+}
+
+.blog-header-actions h1 {
+    margin: 0;
+    color: #333;
+}
+
+.btn-crear-post {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+.btn-crear-post:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+.blog-posts {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.post {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.post h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.post p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.post a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.post a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

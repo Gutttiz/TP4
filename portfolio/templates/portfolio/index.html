@@ -117,12 +117,124 @@
       </div>
     </section>
 
+<!-- BLOG -->
+<section id="blog-latest">
+  <div class="blog-header">
+    <h2>Últimos posts</h2>
+    <a href="{% url 'crear_post' %}" class="btn-crear-post" title="Crear nuevo post">
+      <i class="fa-solid fa-plus"></i>
+    </a>
+  </div>
+  
+  {% if posts %}
+    <div class="blog-posts">
+      {% for post in posts %}
+        <div class="post" onclick="window.location.href='{% url 'post_detail' post.pk %}'">
+          <h3>{{ post.titulo }}</h3>
+          {% if post.imagen %}
+            <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}">
+          {% endif %}
+          <p>{{ post.contenido|truncatewords:20 }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="no-posts">
+      <p>No hay posts aún.</p>
+      <a href="{% url 'crear_post' %}" class="btn-crear-primer-post">Crear el primer post</a>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  /* Estilos minimalistas para el blog */
+  .blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-crear-post {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #333;
+    background: transparent;
+    color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.8rem;
+  }
+
+  .btn-crear-post:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  /* Modo oscuro */
+  body.dark-mode .btn-crear-post {
+    border-color: #fff;
+    color: #fff;
+  }
+
+  body.dark-mode .btn-crear-post:hover {
+    background: #fff;
+    color: #333;
+  }
+
+  .no-posts {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .no-posts p {
+    margin-bottom: 1rem;
+    color: #666;
+  }
+
+  body.dark-mode .no-posts p {
+    color: #ccc;
+  }
+
+  .btn-crear-primer-post {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #333;
+    background: transparent;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+  }
+
+  .btn-crear-primer-post:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  body.dark-mode .btn-crear-primer-post {
+    border-color: #fff;
+    color: #fff;
+  }
+
+  body.dark-mode .btn-crear-primer-post:hover {
+    background: #fff;
+    color: #333;
+  }
+</style>
+
+
     <!-- CONTACTO -->
     <section id="contacto">
       <h2>Contacto</h2>
       <a class="btn btn-contacto" href="https://mail.google.com/mail/?view=cm&to=franciscogutierrez.fngf@gmail.com" target="_blank" rel="noopener">franciscogutierrez.fngf@gmail.com</a>
       <a class="btn btn-contacto" href="https://github.com/Gutttiz" target="_blank" rel="noopener">GitHub</a>
     </section>
+
   </main>
 
   <footer class="hidden-after-intro">
@@ -137,16 +249,3 @@
   <script src="{% static 'portfolio/js/main.js' %}"></script>
 </body>
 </html>
-<section id="blog-latest">
-  <h2>Últimos posts del blog</h2>
-  <div class="latest-posts">
-    {% for post in latest_posts %}
-      <article class="post-card">
-        <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
-        <p>{{ post.content|truncatechars:100 }}</p>
-      </article>
-    {% empty %}
-      <p>No hay posts aún.</p>
-    {% endfor %}
-  </div>
-</section>

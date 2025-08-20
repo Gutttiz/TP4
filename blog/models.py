@@ -1,20 +1,21 @@
 from django.db import models
+from django.utils import timezone
 
 class Post(models.Model):
     titulo = models.CharField(max_length=200)
     contenido = models.TextField()
-    fecha = models.DateTimeField(auto_now_add=True)
+    imagen = models.ImageField(upload_to='posts/', blank=True, null=True)
+    creado = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.titulo
 
-# Modelo Comment mínimo (si tu blog quiere comentarios)
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=50)
-    email = models.EmailField()
+class Comentario(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comentarios')
+    autor = models.CharField(max_length=100)
     contenido = models.TextField()
-    fecha = models.DateTimeField(auto_now_add=True)
+    creado = models.DateTimeField(default=timezone.now)
+    padre = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='respuestas')
 
     def __str__(self):
-        return f"Comentario de {self.nombre} en {self.post.titulo}"
+        return f"{self.autor} - {self.post.titulo}"

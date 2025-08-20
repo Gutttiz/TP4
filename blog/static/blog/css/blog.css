@@ -1,8 +1,276 @@
-.post-card { border: 1px solid #ddd; padding: 1em; margin-bottom: 1em; }
-.post-card h2 a { text-decoration: none; color: #333; }
-.post-detail { padding: 1em; }
-.comments { margin-top: 2em; }
-.comment { padding: 0.5em; border-bottom: 1px solid #ccc; }
-.form-input, .form-textarea { width: 100%; padding: 0.5em; margin-bottom: 0.5em; }
-button { padding: 0.5em 1em; background: #333; color: #fff; border: none; cursor: pointer; }
-button:hover { background: #555; }
+/* =========================
+   VARIABLES Y FUENTES
+   ========================= */
+:root {
+  --color-bg: #fff;
+  --color-text: #111;
+  --color-accent: #222;
+  --color-btn: #fff;
+  --color-btn-bg: #222;
+  --color-btn-hover: #fff;
+  --color-btn-bg-hover: #444;
+  --color-border: #222;
+  --color-gradient: linear-gradient(135deg, #f5f5f5 0%, #d3d3d3 100%);
+}
+
+body, input, textarea, select, button {
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-text);
+  background: var(--color-gradient);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   BLOG PAGE CONTAINER
+   ========================= */
+.blog-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6em 1.5em 2em 1.5em; /* espacio para header fijo */
+}
+
+/* ===== ACCIONES DE HEADER ===== */
+.blog-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.blog-header-actions h1 {
+  font-weight: 300;
+  font-size: 2.2rem;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.btn-crear-post {
+  background: var(--color-btn-bg);
+  color: var(--color-btn);
+  padding: 0.7rem 1.4rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-crear-post:hover {
+  background: var(--color-btn-bg-hover);
+  color: var(--color-btn-hover);
+}
+
+/* =========================
+   BLOG POSTS LIST
+   ========================= */
+.blog-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post {
+  background: var(--color-bg);
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.post h3 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+  color: var(--color-accent);
+}
+
+.post p {
+  font-weight: 300;
+  color: #555;
+  line-height: 1.5;
+}
+
+.post img {
+  float: right;
+  width: 120px;
+  height: auto;
+  border-radius: 6px;
+  margin-left: 12px;
+}
+
+/* =========================
+   POST DETAIL
+   ========================= */
+.post-detail {
+  background: var(--color-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.post-title {
+  font-weight: 400;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.post-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  margin: 1.5rem 0;
+}
+
+.post-body {
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* =========================
+   SECCIÓN DE COMENTARIOS
+   ========================= */
+.comments-section {
+  background: var(--color-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.comments-section h3 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-accent);
+}
+
+.comentario {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comentario-usuario {
+  color: var(--color-accent);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.comentario-body p {
+  margin: 0;
+  font-weight: 300;
+  color: #555;
+  line-height: 1.5;
+}
+
+.respuesta {
+  margin-left: 2rem;
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  margin-top: 0.8rem;
+}
+
+/* =========================
+   FORMULARIO DE COMENTARIOS
+   ========================= */
+.form-comentario {
+  background: var(--color-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.form-comentario h3 {
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-accent);
+}
+
+.form-comentario input[type="text"],
+.form-comentario input[type="email"],
+.form-comentario textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.form-comentario button[type="submit"] {
+  background: var(--color-btn-bg);
+  color: var(--color-btn);
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.form-comentario button[type="submit"]:hover {
+  background: var(--color-btn-bg-hover);
+  color: var(--color-btn-hover);
+}
+
+/* =========================
+   BOTÓN VOLVER
+   ========================= */
+.btn-volver {
+  background: #6c757d;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-volver:hover {
+  background: #5a6268;
+  text-decoration: none;
+}
+/* =========================
+   RESPONSIVO
+   ========================= */
+@media (max-width: 768px) {
+  .blog-page {
+    padding: 6em 1rem 2em 1rem;
+  }
+  .blog-header h2 {
+    font-size: 2rem;
+  }
+  .blog-header-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .blog-header-actions h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  .post-title {
+    font-size: 2rem;
+  }
+  .respuesta {
+    margin-left: 1rem;
+  }
+}

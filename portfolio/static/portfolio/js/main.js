@@ -89,3 +89,12 @@ document.getElementById('link-sobre-mi').addEventListener('click', function(e) {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const posts = document.querySelectorAll(".post");
+  posts.forEach((post, index) => {
+    setTimeout(() => {
+      post.classList.add("animate-in");
+    }, index * 150); // secuencia: 0.15s entre cada post
+  });
+});

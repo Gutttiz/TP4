@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Gutttiz | Portfolio{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}">
+  <link rel="icon" href="{% static 'portfolio/img/favicon.ico' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="{% url 'portfolio:index' %}">Inicio</a></li>
+        <li><a href="{% url 'blog:lista_posts' %}">Blog</a></li>
+        <li><a href="{% url 'blog:crear_post' %}">+ Crear Post</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="navbar-actions">
+        <!-- Botón para crear post -->
+        <a href="{% url 'blog:crear_post' %}" class="btn btn-success">+ Crear Post</a>
+        <button id="toggle-dark" class="luna-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <small>&copy; 2025 Portfolio Profesional Personalizado</small>
+  </footer>
+
+  <script src="{% static 'portfolio/js/main.js' %}"></script>
+</body>
+</html>

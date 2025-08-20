@@ -32,7 +32,7 @@ ROOT_URLCONF = 'miportfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',  # obligatorio
-        'DIRS': [BASE_DIR / "portfolio" / "templates"],  # para que busque tus templates
+        'DIRS': [BASE_DIR  / "templates"],  # para que busque tus templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

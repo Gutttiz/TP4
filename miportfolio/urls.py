@@ -1,12 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from portfolio import views as portfolio_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('portfolio.urls')),  # solo la página de inicio
-    path('blog/', include('blog.urls')),  # blog funcional
+    path('', portfolio_views.home, name='home'),  # Página principal con posts
+    path('blog/', include('blog.urls')),          # Opcional: página completa del blog
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
